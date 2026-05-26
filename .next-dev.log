@@ -1,0 +1,25 @@
+
+> likeshop@0.1.0 dev
+> next dev --turbopack
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.39:3000
+- Environments: .env.local
+✓ Ready in 363ms
+
+⨯ Error: querySrv ECONNREFUSED _mongodb._tcp.database.ziqt7ny.mongodb.net
+    at ignore-listed frames {
+  errno: undefined,
+  code: 'ECONNREFUSED',
+  syscall: 'querySrv',
+  hostname: '_mongodb._tcp.database.ziqt7ny.mongodb.net',
+  digest: '516420034'
+}
+ GET /ka 500 in 3.0s (next.js: 2.4s, proxy.ts: 132ms, application-code: 466ms)
+ GET /ka/auth/login 200 in 1254ms (next.js: 1135ms, proxy.ts: 4ms, application-code: 115ms)
+✓ Compiled in 71ms
+ GET /ka 200 in 367ms (next.js: 119ms, proxy.ts: 65ms, application-code: 183ms)
+ GET /ka/listings 200 in 1008ms (next.js: 929ms, proxy.ts: 4ms, application-code: 75ms)
+ GET /ka/auth/login 200 in 115ms (next.js: 14ms, proxy.ts: 4ms, application-code: 97ms)
+ GET /ka/auth/register 200 in 1215ms (next.js: 1161ms, proxy.ts: 3ms, application-code: 50ms)
