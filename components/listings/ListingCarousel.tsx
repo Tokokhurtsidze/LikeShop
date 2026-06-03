@@ -58,7 +58,7 @@ export function ListingCarousel({ listings, locale }: ListingCarouselProps) {
   if (!listings.length) return null
 
   return (
-    <div className="relative">
+    <div className="relative px-1">
       {/* Left arrow */}
       {canLeft && (
         <button
@@ -81,8 +81,8 @@ export function ListingCarousel({ listings, locale }: ListingCarouselProps) {
         {listings.map((listing) => (
           <div
             key={listing._id}
-            className="flex w-[260px] shrink-0 sm:w-[280px]"
-            style={{ scrollSnapAlign: 'start' }}
+            className="w-[260px] shrink-0 sm:w-[280px]"
+            style={{ scrollSnapAlign: 'start', height: '370px' }}
           >
             <ListingCard listing={listing} locale={locale} />
           </div>
