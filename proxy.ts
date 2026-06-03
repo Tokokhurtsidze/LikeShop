@@ -10,7 +10,7 @@ export default async function proxy(req: NextRequest) {
 
   const isDashboard = /^\/[a-z]{2}\/dashboard/.test(pathname)
   if (isDashboard) {
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
+    const token = await getToken({ req, secret: process.env.AUTH_SECRET ?? process.env.NEXTAUTH_SECRET })
     if (!token) {
       const locale = pathname.split('/')[1] ?? 'ka'
       return NextResponse.redirect(new URL(`/${locale}/auth/login`, req.url))
