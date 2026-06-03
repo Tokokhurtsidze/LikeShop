@@ -2,7 +2,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { connectDB } from '@/lib/mongodb'
 import { Listing } from '@/models/Listing'
-import { ListingGrid } from '@/components/listings/ListingGrid'
+import { ListingCarousel } from '@/components/listings/ListingCarousel'
 import { SearchBar } from '@/components/search/SearchBar'
 
 export const revalidate = 1800
@@ -197,7 +197,7 @@ export default async function HomePage({ params }: PageProps) {
                 {ka ? 'ყველა' : 'View all'}
               </Link>
             </div>
-            <ListingGrid listings={featured} locale={locale} />
+            <ListingCarousel listings={featured} locale={locale} />
           </section>
         )}
 
@@ -212,7 +212,7 @@ export default async function HomePage({ params }: PageProps) {
                 {ka ? 'ყველა' : 'View all'}
               </Link>
             </div>
-            <ListingGrid listings={popular} locale={locale} />
+            <ListingCarousel listings={popular} locale={locale} />
           </section>
         )}
 
@@ -227,7 +227,7 @@ export default async function HomePage({ params }: PageProps) {
                 {ka ? 'ყველა' : 'View all'}
               </Link>
             </div>
-            <ListingGrid listings={forSale} locale={locale} />
+            <ListingCarousel listings={forSale} locale={locale} />
           </section>
         )}
 
@@ -242,7 +242,7 @@ export default async function HomePage({ params }: PageProps) {
                 {ka ? 'ყველა' : 'View all'}
               </Link>
             </div>
-            <ListingGrid listings={forRent} locale={locale} />
+            <ListingCarousel listings={forRent} locale={locale} />
           </section>
         )}
 
