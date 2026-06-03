@@ -39,7 +39,7 @@ export function ListingCard({ listing, locale }: ListingCardProps) {
   return (
     <Link
       href={`/${locale}/listings/${listing._id}`}
-      className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 h-full"
+      className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md h-full"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
