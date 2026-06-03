@@ -12,7 +12,7 @@ interface ListingCardProps {
     transactionType: 'sale' | 'rent_monthly' | 'rent_daily'
     propertyType: string
     price: number
-    currency: 'GEL' | 'USD'
+    currency?: string
     area: number
     rooms: number
     floor?: number
@@ -33,9 +33,8 @@ const transactionLabels: Record<string, Record<string, string>> = {
 export function ListingCard({ listing, locale }: ListingCardProps) {
   const title = listing.title[locale as 'en' | 'ka'] || listing.title.en
   const coverImage = listing.images[0]
-  const currencySymbol = listing.currency === 'GEL' ? '₾' : '$'
-  const priceFormatted = listing.price.toLocaleString()
   const txLabel = transactionLabels[listing.transactionType]?.[locale] ?? transactionLabels[listing.transactionType]?.en
+  const priceFormatted = listing.price.toLocaleString()
 
   return (
     <Link
@@ -69,7 +68,7 @@ export function ListingCard({ listing, locale }: ListingCardProps) {
       <div className="flex flex-1 flex-col gap-2 p-4">
         {/* Price */}
         <div className="flex items-baseline gap-1">
-          <span className="text-xl font-bold text-gray-900">{currencySymbol}{priceFormatted}</span>
+          <span className="text-xl font-bold text-gray-900">₾{priceFormatted}</span>
           {listing.transactionType === 'rent_monthly' && (
             <span className="text-sm text-gray-500">{locale === 'ka' ? '/თვეში' : '/mo'}</span>
           )}

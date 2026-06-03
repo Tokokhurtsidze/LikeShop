@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { connectDB } from '@/lib/mongodb'
 import { Listing } from '@/models/Listing'
 import { ImageGallery } from '@/components/listings/ImageGallery'
-import { PropertyMap } from '@/components/map/PropertyMap'
 import { ListingJsonLd } from '@/components/listings/ListingJsonLd'
 import { Badge } from '@/components/ui/Badge'
 import { incrementViews } from '@/actions/listings'
@@ -74,7 +73,7 @@ export default async function ListingDetailPage({ params }: PageProps) {
   const title = listing.title[l] || listing.title.en
   const description = listing.description[l] || listing.description.en
   const currencySymbol = listing.currency === 'GEL' ? '₾' : '$'
-  const owner = listing.owner as { name: string; phone?: string; avatar?: string }
+  const owner = listing.owner as { name: string; phone?: string; avatar?: string } | null
 
   const pageUrl = `${process.env.NEXTAUTH_URL ?? ''}/${locale}/listings/${id}`
 
@@ -180,20 +179,6 @@ export default async function ListingDetailPage({ params }: PageProps) {
                 </div>
               )}
 
-              {/* Map */}
-              {listing.location?.coordinates?.lat && (
-                <div className="mt-8">
-                  <h2 className="mb-3 text-lg font-semibold text-gray-900">
-                    {ka ? 'ადგილმდებარეობა' : 'Location'}
-                  </h2>
-                  <p className="mb-3 text-sm text-gray-600">{listing.location.address}</p>
-                  <PropertyMap
-                    lat={listing.location.coordinates.lat}
-                    lng={listing.location.coordinates.lng}
-                    title={title}
-                  />
-                </div>
-              )}
             </div>
           </div>
 
@@ -205,30 +190,36 @@ export default async function ListingDetailPage({ params }: PageProps) {
                 <h2 className="mb-4 font-semibold text-gray-900">
                   {ka ? 'გამყიდველი' : 'Seller'}
                 </h2>
-                <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-xl font-bold text-blue-700">
-                    {owner.name?.charAt(0).toUpperCase()}
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900">{owner.name}</p>
-                    {owner.phone && <p className="text-sm text-gray-500">{owner.phone}</p>}
-                  </div>
-                </div>
-                {owner.phone && (
-                  <a
-                    href={`tel:${owner.phone}`}
-                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 font-medium text-white hover:bg-blue-700"
-                  >
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
-                    {ka ? 'დაკავშირება' : 'Call Now'}
-                  </a>
+                {owner ? (
+                  <>
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-xl font-bold text-blue-700">
+                        {owner.name?.charAt(0).toUpperCase() ?? '?'}
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">{owner.name}</p>
+                        {owner.phone && <p className="text-sm text-gray-500">{owner.phone}</p>}
+                      </div>
+                    </div>
+                    {owner.phone && (
+                      <a
+                        href={`tel:${owner.phone}`}
+                        className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 font-medium text-white hover:bg-blue-700"
+                      >
+                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                          />
+                        </svg>
+                        {ka ? 'დაკავშირება' : 'Call Now'}
+                      </a>
+                    )}
+                  </>
+                ) : (
+                  <p className="text-sm text-gray-500">{ka ? 'ინფორმაცია არ არის' : 'No contact info'}</p>
                 )}
               </div>
 

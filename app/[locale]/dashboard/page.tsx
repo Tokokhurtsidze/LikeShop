@@ -1,6 +1,7 @@
 import { auth } from '@/lib/auth'
 import { connectDB } from '@/lib/mongodb'
 import { Listing } from '@/models/Listing'
+import mongoose from 'mongoose'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -12,6 +13,7 @@ interface PageProps {
 }
 
 async function getUserListings(userId: string) {
+  if (!mongoose.Types.ObjectId.isValid(userId)) return []
   await connectDB()
   const listings = await Listing.find({ owner: userId }).sort({ createdAt: -1 }).lean()
   return JSON.parse(JSON.stringify(listings))

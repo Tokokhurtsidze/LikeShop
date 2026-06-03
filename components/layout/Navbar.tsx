@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { auth } from '@/lib/auth'
-import { SignOutButton } from './SignOutButton'
+import { AccountMenu } from './AccountMenu'
 
 interface NavbarProps {
   locale: string
@@ -39,18 +39,17 @@ export async function Navbar({ locale }: NavbarProps) {
           {session ? (
             <>
               <Link
-                href={`/${locale}/dashboard`}
-                className="rounded-lg px-3 py-2 text-sm text-gray-600 hover:bg-gray-100"
-              >
-                {ka ? 'კაბინეტი' : 'Dashboard'}
-              </Link>
-              <Link
                 href={`/${locale}/dashboard/new`}
                 className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700"
               >
                 {ka ? '+ განცხადება' : '+ Post'}
               </Link>
-              <SignOutButton locale={locale} />
+              <AccountMenu
+                name={session.user?.name}
+                email={session.user?.email}
+                image={session.user?.image}
+                locale={locale}
+              />
             </>
           ) : (
             <>

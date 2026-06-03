@@ -92,7 +92,7 @@ export function ListingForm({ locale, initialData }: ListingFormProps) {
       transactionType: 'sale',
       propertyType: 'apartment',
       price: 0,
-      currency: 'GEL',
+      currency: 'USD',
       area: 0,
       rooms: 1,
       bedrooms: 1,

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "PowerShell([Convert]::ToBase64String\\([System.Security.Cryptography.RandomNumberGenerator]::GetBytes\\(32\\)\\))",
+      "PowerShell($rng = [System.Security.Cryptography.RandomNumberGenerator]::Create\\(\\); $bytes = New-Object byte[] 32; $rng.GetBytes\\($bytes\\); [Convert]::ToBase64String\\($bytes\\))",
+      "Bash(node -e \"const p = require\\('./node_modules/ai/package.json'\\); console.log\\(p.version, Object.keys\\(p.exports||{}\\).filter\\(k=>k.includes\\('react'\\)\\)\\)\")",
+      "Bash(node -e \"const { useChat } = require\\('@ai-sdk/react'\\); console.log\\(typeof useChat\\)\")",
+      "Bash(curl -s -X POST http://localhost:3000/api/chat -H \"Content-Type: application/json\" -d \"{\\\\\"messages\\\\\":[{\\\\\"id\\\\\":\\\\\"1\\\\\",\\\\\"role\\\\\":\\\\\"user\\\\\",\\\\\"parts\\\\\":[{\\\\\"type\\\\\":\\\\\"text\\\\\",\\\\\"text\\\\\":\\\\\"hello\\\\\"}]}]}\")"
+    ]
+  }
+}

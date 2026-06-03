@@ -3,6 +3,8 @@ import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import { Navbar } from '@/components/layout/Navbar'
+import { Footer } from '@/components/layout/Footer'
+import { ChatWidget } from '@/components/chat/ChatWidget'
 
 export default async function LocaleLayout({
   children,
@@ -17,16 +19,11 @@ export default async function LocaleLayout({
   const messages = await getMessages()
 
   return (
-    <html lang={locale}>
-      <body className="min-h-screen bg-gray-50">
-        <NextIntlClientProvider messages={messages}>
-          <Navbar locale={locale} />
-          <main>{children}</main>
-          <footer className="mt-20 border-t border-gray-200 bg-white py-8 text-center text-sm text-gray-500">
-            © {new Date().getFullYear()} LikeShop. All rights reserved.
-          </footer>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <Navbar locale={locale} />
+      <main>{children}</main>
+      <Footer locale={locale} />
+      <ChatWidget locale={locale} />
+    </NextIntlClientProvider>
   )
 }
