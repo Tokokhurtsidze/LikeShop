@@ -109,6 +109,16 @@ export function ListingForm({ locale, initialData }: ListingFormProps) {
   })
 
   const selectedAmenities = watch('amenities') ?? []
+  const watchedPrice = watch('price')
+  const watchedCurrency = watch('currency')
+
+  const USD_TO_GEL = 2.7
+  const convertedPrice = (() => {
+    const p = Number(watchedPrice)
+    if (!p) return null
+    if (watchedCurrency === 'GEL') return `≈ $${Math.round(p / USD_TO_GEL).toLocaleString()}`
+    return `≈ ₾${Math.round(p * USD_TO_GEL).toLocaleString()}`
+  })()
 
   function toggleAmenity(key: string) {
     const current = watch('amenities') ?? []
@@ -251,13 +261,18 @@ export function ListingForm({ locale, initialData }: ListingFormProps) {
       <div className={sectionClass}>
         <h2 className={sectionTitle}>{ka ? 'ფასი და სპეციფიკაცია' : 'Price & Specifications'}</h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-          <Input
-            label={ka ? 'ფასი' : 'Price'}
-            type="number"
-            min={0}
-            error={errors.price?.message}
-            {...register('price', { valueAsNumber: true })}
-          />
+          <div className="flex flex-col gap-1">
+            <Input
+              label={ka ? 'ფასი' : 'Price'}
+              type="number"
+              min={0}
+              error={errors.price?.message}
+              {...register('price', { valueAsNumber: true })}
+            />
+            {convertedPrice && (
+              <span className="text-xs text-gray-400">{convertedPrice}</span>
+            )}
+          </div>
           <Controller
             name="currency"
             control={control}
