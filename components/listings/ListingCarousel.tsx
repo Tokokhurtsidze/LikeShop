@@ -51,8 +51,8 @@ export function ListingCarousel({ listings, locale }: ListingCarouselProps) {
   function scroll(dir: 'left' | 'right') {
     const el = scrollRef.current
     if (!el) return
-    const cardWidth = el.querySelector('a')?.offsetWidth ?? 280
-    el.scrollBy({ left: dir === 'left' ? -(cardWidth + 20) : cardWidth + 20, behavior: 'smooth' })
+    const step = el.clientWidth * 0.8
+    el.scrollBy({ left: dir === 'left' ? -step : step, behavior: 'smooth' })
   }
 
   if (!listings.length) return null
@@ -81,7 +81,7 @@ export function ListingCarousel({ listings, locale }: ListingCarouselProps) {
         {listings.map((listing) => (
           <div
             key={listing._id}
-            className="w-[260px] shrink-0 sm:w-[280px]"
+            className="flex w-[260px] shrink-0 sm:w-[280px]"
             style={{ scrollSnapAlign: 'start' }}
           >
             <ListingCard listing={listing} locale={locale} />

@@ -113,6 +113,7 @@ export function FilterSidebar({ locale }: FilterSidebarProps) {
           </label>
           <div className="flex items-center gap-2">
             <input
+              key={`minPrice-${searchParams.get('minPrice')}`}
               type="number"
               placeholder={ka ? 'მინ.' : 'Min'}
               defaultValue={searchParams.get('minPrice') ?? ''}
@@ -121,6 +122,7 @@ export function FilterSidebar({ locale }: FilterSidebarProps) {
             />
             <span className="text-gray-400">—</span>
             <input
+              key={`maxPrice-${searchParams.get('maxPrice')}`}
               type="number"
               placeholder={ka ? 'მაქს.' : 'Max'}
               defaultValue={searchParams.get('maxPrice') ?? ''}
@@ -136,6 +138,7 @@ export function FilterSidebar({ locale }: FilterSidebarProps) {
           </label>
           <div className="flex items-center gap-2">
             <input
+              key={`minArea-${searchParams.get('minArea')}`}
               type="number"
               placeholder={ka ? 'მინ.' : 'Min'}
               defaultValue={searchParams.get('minArea') ?? ''}
@@ -144,6 +147,7 @@ export function FilterSidebar({ locale }: FilterSidebarProps) {
             />
             <span className="text-gray-400">—</span>
             <input
+              key={`maxArea-${searchParams.get('maxArea')}`}
               type="number"
               placeholder={ka ? 'მაქს.' : 'Max'}
               defaultValue={searchParams.get('maxArea') ?? ''}
